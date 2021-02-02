@@ -16,14 +16,17 @@ void eventManagement(sf::RenderWindow &myWindow)
     }
 }
 
-void windowManagement(void)
+void windowManagement(sf::RectangleShape board)
 {
     sf::RenderWindow myWindow(sf::VideoMode(1920, 1080), "Connect 4");
+    std::vector<sf::CircleShape> holes = createHoles();
 
     myWindow.setFramerateLimit(60);
     while (myWindow.isOpen()) {
         eventManagement(myWindow);
         myWindow.clear(sf::Color::White);
+        myWindow.draw(board);
+        drawCircles(holes, myWindow);
         myWindow.display();
     }
 }

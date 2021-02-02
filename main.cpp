@@ -9,6 +9,8 @@
 
 int main(void)
 {
-    windowManagement();
+    sf::RectangleShape board = makeBoard();
+    std::vector<sf::CircleShape> holes = createHoles();
+    windowManagement(board);
     return 0;
 }
