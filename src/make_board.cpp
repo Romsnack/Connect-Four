@@ -51,7 +51,7 @@ void drawCircles(std::vector<sf::CircleShape> holes, sf::RenderWindow &myWindow)
     int i = 0;
 
     while (i < 42) {
-        myWindow.draw(holes[i]);
+        insideCircle(holes, myWindow);
         i++;
     }
 }
