@@ -19,7 +19,8 @@ std::vector<sf::CircleShape> createHoles();
 void drawCircles(std::vector<sf::CircleShape> holes, sf::RenderWindow &myWindow);
 int **create_tokens(void);
 void delete_tokens(int **tokens);
-void insideCircle(std::vector<sf::CircleShape> holes, sf::RenderWindow &myWindow);
+void insideCircle(std::vector<sf::CircleShape> holes, sf::RenderWindow &myWindow, unsigned long int i);
+void clickedCircle(std::vector<sf::CircleShape> &holes, sf::RenderWindow &myWindow, unsigned long int i);
 
 
 #endif /* !GAME_INCLUDES_HPP_ */

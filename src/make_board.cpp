@@ -48,10 +48,11 @@ std::vector<sf::CircleShape> createHoles()
 
 void drawCircles(std::vector<sf::CircleShape> holes, sf::RenderWindow &myWindow)
 {
-    int i = 0;
+    unsigned long int i = 0;
 
     while (i < 42) {
-        insideCircle(holes, myWindow);
+        clickedCircle(holes, myWindow, i);
+        insideCircle(holes, myWindow, i);
         i++;
     }
 }
