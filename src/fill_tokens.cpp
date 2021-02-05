@@ -5,9 +5,9 @@
 ** fill_tokens
 */
 
-#include "game_includes.hpp"
+#include "objects.hpp"
 
-void clickedCircle(std::vector<sf::CircleShape> &holes, sf::RenderWindow &myWindow, unsigned long int i)
+void clickedCircle(Board &game, sf::RenderWindow &myWindow, unsigned long int i, bool &player)
 {
     sf::Vector2i mouse_pos = sf::Mouse::getPosition();
     sf::FloatRect circle_bounds;
@@ -15,13 +15,22 @@ void clickedCircle(std::vector<sf::CircleShape> &holes, sf::RenderWindow &myWind
 
     mouse_pos = sf::Mouse::getPosition();
     f_mouse_pos = {(float)mouse_pos.x, (float)mouse_pos.y - 50};
-    circle_bounds = holes[i].getGlobalBounds();
-    if (circle_bounds.contains(f_mouse_pos) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
-        holes[i].setFillColor(sf::Color::Red);
-    myWindow.draw(holes[i]);
+    circle_bounds = game.holes[i].token.getGlobalBounds();
+    if (circle_bounds.contains(f_mouse_pos) && sf::Mouse::isButtonPressed(sf::Mouse::Left) && 
+        player == true && game.holes[i].token.getFillColor() == sf::Color::White) {
+        addToken(game.gameBoard, i, player);
+        game.holes[i].token.setFillColor(sf::Color::Red);
+        player = false;
+    } else if (circle_bounds.contains(f_mouse_pos) && sf::Mouse::isButtonPressed(sf::Mouse::Left) &&
+        player == false && game.holes[i].token.getFillColor() == sf::Color::White) {
+        addToken(game.gameBoard, i, player);
+        game.holes[i].token.setFillColor(sf::Color::Yellow);
+        player = true;
+    }
+    myWindow.draw(game.holes[i].token);
 }
 
-void insideCircle(std::vector<sf::CircleShape> holes, sf::RenderWindow &myWindow, unsigned long int i)
+void insideCircle(Board game, sf::RenderWindow &myWindow, unsigned long int i, bool &player)
 {
     sf::Vector2i mouse_pos = sf::Mouse::getPosition();
     sf::FloatRect circle_bounds;
@@ -29,8 +38,13 @@ void insideCircle(std::vector<sf::CircleShape> holes, sf::RenderWindow &myWindow
 
     mouse_pos = sf::Mouse::getPosition();
     f_mouse_pos = {(float)mouse_pos.x, (float)mouse_pos.y - 50};
-    circle_bounds = holes[i].getGlobalBounds();
-    if (circle_bounds.contains(f_mouse_pos) && sf::Mouse::isButtonPressed(sf::Mouse::Left) != true)
-        holes[i].setFillColor(sf::Color(255, 0, 0, 150));
-    myWindow.draw(holes[i]);
+    circle_bounds = game.holes[i].token.getGlobalBounds();
+    if (circle_bounds.contains(f_mouse_pos) && sf::Mouse::isButtonPressed(sf::Mouse::Left) != true &&
+        player == true && game.holes[i].token.getFillColor() == sf::Color::White) {
+        game.holes[i].token.setFillColor(sf::Color(255, 0, 0, 150));
+    } else if (circle_bounds.contains(f_mouse_pos) && sf::Mouse::isButtonPressed(sf::Mouse::Left) != true &&
+        player == false && game.holes[i].token.getFillColor() == sf::Color::White) {
+            game.holes[i].token.setFillColor(sf::Color(255, 255, 0, 100));
+    }
+    myWindow.draw(game.holes[i].token);
 }

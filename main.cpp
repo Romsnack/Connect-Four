@@ -5,13 +5,11 @@
 ** main
 */
 
-#include "game_includes.hpp"
+#include "objects.hpp"
 
 int main(void)
 {
-    int **tokens = create_tokens();
-    sf::RectangleShape board = makeBoard();
-    windowManagement(board);
-    delete_tokens(tokens);
+    Board game;
+    windowManagement(game);
     return 0;
 }

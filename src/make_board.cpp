@@ -5,7 +5,7 @@
 ** draw_game_board
 */
 
-#include "game_includes.hpp"
+#include "objects.hpp"
 
 sf::RectangleShape makeBoard()
 {
@@ -15,6 +15,7 @@ sf::RectangleShape makeBoard()
 
     board.setFillColor(sf::Color::Blue);
     board.setPosition(position);
+    printf("Creation of board\n");
 
     return board;
 }
@@ -25,12 +26,13 @@ sf::CircleShape createHole(sf::Vector2f position)
 
     hole.setFillColor(sf::Color::White);
     hole.setPosition(position);
+    printf("Creation of hole\n");
     return hole;
 }
 
-std::vector<sf::CircleShape> createHoles()
+std::vector<Tokens> createHoles()
 {
-    std::vector<sf::CircleShape> holes;
+    std::vector<Tokens> holes;
     int i = 0;
     sf::Vector2f position = {430, 0};
 
@@ -39,20 +41,21 @@ std::vector<sf::CircleShape> createHoles()
             position.x = 430;
             position.y += 120;
         }
-        holes.push_back(createHole(position));
+        holes.push_back(Tokens(position));
         position.x += 150;
         i++;
     }
+    printf("Finished creation of vector containing the holes\n");
     return holes;
 }
 
-void drawCircles(std::vector<sf::CircleShape> holes, sf::RenderWindow &myWindow)
+void drawCircles(Board &game, sf::RenderWindow &myWindow, bool &player)
 {
     unsigned long int i = 0;
 
     while (i < 42) {
-        clickedCircle(holes, myWindow, i);
-        insideCircle(holes, myWindow, i);
+        clickedCircle(game, myWindow, i, player);
+        insideCircle(game, myWindow, i, player);
         i++;
     }
 }

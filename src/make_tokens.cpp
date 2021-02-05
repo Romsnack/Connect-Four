@@ -5,7 +5,7 @@
 ** make_tokens
 */
 
-#include "game_includes.hpp"
+#include "objects.hpp"
 
 int **create_tokens(void)
 {
@@ -22,7 +22,44 @@ int **create_tokens(void)
         }
         j++;
     }
+    printf("Creating 2D int array\n");
     return tokens;
+}
+
+int getBottom(int **tokens, int i)
+{
+    int bottom = 5;
+    while (tokens[bottom][i % 7] != 0) {
+        if (bottom == 0)
+            return bottom;
+        bottom--;
+    }
+    return bottom;
+}
+
+void addToken(int **tokens, int i, bool player)
+{
+    if (player == true)
+        tokens[getBottom(tokens, i)][i % 7] = 1;
+    else
+        tokens[getBottom(tokens, i)][i % 7] = 2;
+}
+
+void print2Darr(int **tokens)
+{
+    int i = 0;
+    int j = 0;
+
+    while (j < 6) {
+        while (i < 7) {
+            printf("| %d |", tokens[j][i]);
+            i++;
+        }
+        i = 0;
+        j++;
+        printf("\n");
+    }
+    printf("\n");
 }
 
 void delete_tokens(int **tokens)
